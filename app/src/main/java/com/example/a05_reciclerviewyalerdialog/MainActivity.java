@@ -21,6 +21,7 @@ import com.example.a05_reciclerviewyalerdialog.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         EditText txtTitulo = contenido.findViewById(R.id.txtTituloAddToDo);
         EditText txtContenido = contenido.findViewById(R.id.txtContenidoAddToDo);
 
+
         builder.setView(contenido);
 
         builder.setNegativeButton("Cancelar",null);
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         return builder.create();
     }
+
+
 
     private void crarToDos() {
         for (int i = 0; i < 1000000; i++) {

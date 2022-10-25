@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a05_reciclerviewyalerdialog.MainActivity;
 import com.example.a05_reciclerviewyalerdialog.R;
 import com.example.a05_reciclerviewyalerdialog.modelos.ToDo;
 
@@ -68,6 +69,29 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoVh> {
                 confirmaCambioEstado("¿Estas seguro de que quieres cambiar el estado?",toDo).show();
             }
         });
+
+        holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmaDelete("Vas a eliminar el Elemento", holder.getAdapterPosition()).show();
+            }
+        });
+    }
+
+    private AlertDialog confirmaDelete(String mensaje, int posicion){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(mensaje);
+        builder.setCancelable(false);
+
+        builder.setNegativeButton("NO", null);
+        builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                objects.remove(posicion);
+                notifyItemRemoved(posicion);
+            }
+        });
+        return builder.create();
     }
 
     @Override
@@ -92,12 +116,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoVh> {
     }
 
 
+
     // Objeto que se mostrará cada vez que se tenag que mostrar un To-Do en el Recycler pero sólo se instancian los que caben en la pantalla + 1/2
 
     public class ToDoVh extends RecyclerView.ViewHolder {
 
         TextView lbTitulo, lbContenido, lbFecha;
-        ImageButton btnCompletado;
+        ImageButton btnCompletado, btnEliminar;
 
         public ToDoVh(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +130,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoVh> {
             lbContenido = itemView.findViewById(R.id.lbContenidoToDoModelView);
             lbFecha = itemView.findViewById(R.id.lbFechaToDoModelView);
             btnCompletado = itemView.findViewById(R.id.btnCompletadoToDoModelView);
+            btnEliminar = itemView.findViewById(R.id.btnDeleteToDoModelView);
         }
     }
 }
